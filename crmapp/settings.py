@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-
 import os
+from .SecretValues import dbname, dbpassword, dbhost, dbport, dbuser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,10 +74,16 @@ WSGI_APPLICATION = 'crmapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# In order for this to work you must create SecretValues.py file and
+# fill it with required values. Not the best practise but the simplest
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': dbname,
+        'USER': dbuser,
+        'PASSWORD': dbpassword,
+        'HOST': dbhost,
+        'PORT': dbport,
     }
 }
 
